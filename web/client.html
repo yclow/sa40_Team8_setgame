@@ -23,10 +23,20 @@ and open the template in the editor.
                 <h3>Games</h3>
             </div>
             <div role="main" class="ui-content">
+                <button data-role="button" id="newGame" name="cmd">New Game</button>
+                <button data-role="button" id="listGame">List Game</button>
                 <ul data-role="listview" data-inset="true" id="gids">                    
                 </ul>
             </div>
         </div>
+        
+                <div id="list" data-role="page">
+            <div data-role="header" data-position="fixed">
+                <h3>Available Games </h3>
+                <ul data-role="listview" data-inset="true" id="gamelist">                    
+                </ul>
+            </div>
+                </div>
 
         <div id="game" data-role="page">
             <div data-role="header" data-position="fixed">
@@ -59,7 +69,5 @@ and open the template in the editor.
                 <button data-role="button" id="submitBtn">Submit</button>
             </div>
         </div>
-
-
     </body>
 </html>

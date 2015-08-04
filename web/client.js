@@ -4,17 +4,36 @@ var pos = [-1, -1];
 var container = [];
 
 $(document).on("pagecreate", "#home", function () {
-    $("#gids").on("click", "li>a", function () {
+    $("#listGame").on("click", function () {
+        $.getJSON(url + "api/game")
+                .done(function (games) {
+                    for (var i in games)
+                        $("#gamelist").append(createGameList(games[i]));
+                    $.mobile.navigate("#list");
+                });
+    });
+        $("#list").on("click", "li>a", function () {
+        console.log("list link clicked");
         gid = $(this).attr("href").substring(1);
         $.mobile.navigate("#game");
     });
-
-    $.getJSON(url + "api/game")
-            .done(function (games) {
-                for (var i in games)
-                    $("#gids").append(createGameList(games[i]));
-                $("#gids").listview("refresh");
-            });
+    $("#newGame").on("click", function () {
+        console.log("Clicked Detect");
+        $.get("create", {cmd: "newGame"})
+                .done(function (number)
+                {
+                    gid=number.trim();
+                $.getJSON(url + "api/game/",{gid:number})
+                        .done(function (result) {
+                            $("#gameid").append(gid);
+                            for (var i in result) {
+                                console.log("> " + result[i]);
+                            }
+                        });
+                }
+                );
+        $.mobile.navigate("#game");
+    });
 });
 
 $(document).on("pagecreate", "#game", function () {
@@ -40,23 +59,20 @@ $(document).on("pagecreate", "#game", function () {
     });
 
 
-//    $(document).on("pagecontainerbeforeshow", function(_, $ui) {
-//    switch ($ui.toPage.attr("id")) {
-//        case "game":
-//            $.getJSON(url + "api/game/"+ gid)
-//                .done(function(result) {   
-//                    for (var i in result) {                        
-//                    console.log("> " + result[i]);
-//            }
-//                    $("#game").listview("refresh");
-//                });
-//            break;
-//
+//    $(document).on("pagecontainerbeforeshow", function (_, $ui) {
+//        switch ($ui.toPage.attr("id")) {
+//            case "game":
+//                $.getJSON(url + "api/game/" + gid)
+//                        .done(function (result) {
+//                            for (var i in result) {
+//                                console.log("> " + result[i]);
+//                            }
+//                            $("#game").listview("refresh");
+//                        });
+//                break;
 //            default:
-//    }
-//});
-
-
+//        }
+//    });
 
     $("#submitBtn").on("click", function () {
         $.getJSON("game", {
@@ -66,6 +82,7 @@ $(document).on("pagecreate", "#game", function () {
             p2: container[2]
         }).done(function (table)
         {
+            console.log(gid);
             for (var i in container)
                 $("[data-pos='" + container[i] + "']").removeClass("selected");
             pos = [-1, -1];
@@ -75,7 +92,8 @@ $(document).on("pagecreate", "#game", function () {
             }
         }).error(function ()
         {
-            alert("Some Error Message!");
+            console.log(gid);
+            alert("Not a Set!");
         });
     });
 });
