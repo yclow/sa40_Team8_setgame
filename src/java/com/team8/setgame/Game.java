@@ -133,17 +133,17 @@ public class Game {
                System.out.println(z.toString());
            }
            
-               JsonObject data = Json.createObjectBuilder()
-                   .add("01",01)
-                   .add("02",02)
-                    .add("03",03)
-                   .build();           
-           System.out.println(">>> json = " + data);
-          OutboundEvent ooe = new OutboundEvent.Builder()
-                  .mediaType(MediaType.APPLICATION_JSON_TYPE)
-                   .data(JsonObject.class, data)
-                 .build();
-           broadcaster.broadcast(ooe);        
+//                JsonObject data = Json.createObjectBuilder()
+//                    .add("01",01)
+//                    .add("02",02)
+//                    .add("03",03)
+//                    .build();           
+//            System.out.println(">>> json = " + data);
+//            OutboundEvent ooe = new OutboundEvent.Builder()
+//                    .mediaType(MediaType.APPLICATION_JSON_TYPE)
+//                    .data(JsonObject.class, data)
+//                    .build();
+//            broadcaster.broadcast(ooe);        
        }
        else
        {

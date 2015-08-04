@@ -50,20 +50,30 @@ public class GameServlet extends HttpServlet {
 //        }
 //
 //    }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cmd = req.getParameter("cmd");
-        String redirect = "";
-        if ("New Game".equals(cmd)) {
-            Game g = new Game();
-            repository.add(g);
-            redirect = "client.html#" + g.gameId();
-        } else {
-            redirect = "list.html";
-        }
+ 
 
-        resp.sendRedirect(redirect);
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String cmd = req.getParameter("cmd");
+//        System.out.println(cmd);
+//        String redirect = "";
+//        if ("newGame".equals(cmd)) {
+//            Game g = new Game();
+//            repository.add(g);
+//            System.out.println(g.gameId());
+//            resp.setStatus(HttpServletResponse.SC_OK);
+//            try (PrintWriter pw = resp.getWriter()) {
+//                pw.println(g.gameId());
+//            }
+//            redirect = "client.html#game" + g.gameId();
+//        } else {
+//            Game g = new Game();
+//            redirect = "client.html#game" + g.gameId();
+//        }
+//
+//        resp.sendRedirect(redirect);
+//    }
+    
 
 //    @Override
 //    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
