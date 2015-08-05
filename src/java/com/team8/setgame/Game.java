@@ -21,14 +21,14 @@ public class Game {
     
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private final String gid = UUID.randomUUID().toString();
-    private List<Card> Table=new ArrayList<>();
-    private List<Card> Deck=new ArrayList<>();
+    private final List<Card> Table=new ArrayList<>();
+    private final List<Card> Deck=new ArrayList<>();
     private final SseBroadcaster broadcaster = new SseBroadcaster();
     private int unique;
     
     public Game() {   
-        Table=new ArrayList<>();
-        Deck=new ArrayList<>();
+//        Table=new ArrayList<>();
+//        Deck=new ArrayList<>();
         for (int number=1; number<4; number++) {
             for (int colour=1; colour<4; colour++) {
                 for (int shading=1; shading<4; shading++) {
@@ -74,8 +74,9 @@ public class Game {
         return (gid);
     }
     
-    public void add(EventOutput eo) {
+    public void add(EventOutput eo,OutboundEvent ooe) {
         broadcaster.add(eo);
+        broadcaster.broadcast(ooe);
     }
     
        public boolean isSet(Card a, Card b, Card c) {
@@ -124,26 +125,10 @@ public class Game {
              for(int i=0;i<3;i++)
              {
                  Card x= Deck.get(i); 
-                 Deck.remove(x);
-                 Table.add(x);
+                 this.Deck.remove(x);
+                 this.Table.add(x);
              }
-           System.out.println("Set Found"); 
-           for (Card z : Table)
-           {
-               System.out.println(z.toString());
-           }
-           
-//                JsonObject data = Json.createObjectBuilder()
-//                    .add("01",01)
-//                    .add("02",02)
-//                    .add("03",03)
-//                    .build();           
-//            System.out.println(">>> json = " + data);
-//            OutboundEvent ooe = new OutboundEvent.Builder()
-//                    .mediaType(MediaType.APPLICATION_JSON_TYPE)
-//                    .data(JsonObject.class, data)
-//                    .build();
-//            broadcaster.broadcast(ooe);        
+           System.out.println("Set Found");     
        }
        else
        {

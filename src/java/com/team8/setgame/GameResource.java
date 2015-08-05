@@ -1,23 +1,19 @@
 package com.team8.setgame;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 
 @RequestScoped
 @Path("/game")
@@ -48,7 +44,7 @@ public class GameResource {
             List<Card> table = g.get().getTable();
             for (Card z : table) {
                 System.out.println(z.toString());
-                arrBuilder.add(z.toString());
+                arrBuilder.add(z.getNumber());
             }
             return (Response.ok(arrBuilder.build()).build());
         } else {
