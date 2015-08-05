@@ -52,18 +52,18 @@ public class Game {
             Table.add(a);
            
         }
-//        Table.add(new Card(0,0,0,0));
-//        Table.add(new Card(1,1,1,1));
-//        Table.add(new Card(2,2,2,2));
-//        Table.add(new Card(3,3,3,3));
-//        Table.add(new Card(4,4,4,4));
-//        Table.add(new Card(5,5,5,5));
-//        Table.add(new Card(6,6,6,6));
-//        Table.add(new Card(7,7,7,7));
-//        Table.add(new Card(8,8,8,8));
-//        Table.add(new Card(9,9,9,9));
-//        Table.add(new Card(10,10,10,10));
-//        Table.add(new Card(11,11,11,11));
+    //        Table.add(new Card(0,0,0,0));
+    //        Table.add(new Card(1,1,1,1));
+    //        Table.add(new Card(2,2,2,2));
+    //        Table.add(new Card(3,3,3,3));
+    //        Table.add(new Card(4,4,4,4));
+    //        Table.add(new Card(5,5,5,5));
+    //        Table.add(new Card(6,6,6,6));
+    //        Table.add(new Card(7,7,7,7));
+    //        Table.add(new Card(8,8,8,8));
+    //        Table.add(new Card(9,9,9,9));
+    //        Table.add(new Card(10,10,10,10));
+    //        Table.add(new Card(11,11,11,11));
     }
 
     public List<Card> getTable() {

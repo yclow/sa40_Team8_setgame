@@ -96,6 +96,11 @@ $(document).on("pagecreate", "#game", function () {
             alert("Not a Set!");
         });
     });
+    
+    $("#returnHomeBtn").on("click",function(){
+        $.getJSON(url + "api/game").done(function()
+                {$.mobile.navigate("");});
+    } );
 });
 
 function createGameList(gid) {
