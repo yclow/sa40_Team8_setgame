@@ -97,10 +97,10 @@ $(document).on("pagecreate", "#game", function () {
         });
     });
     
-    $("#returnHomeBtn").on("click",function(){
-        $.getJSON(url + "api/game").done(function()
-                {$.mobile.navigate("");});
-    } );
+//    $("#returnHomeBtn").on("click",function(){
+//        $.getJSON(url + "api/game").done(function()
+//                {$.mobile.navigate("");});
+//    } );
 });
 
 function createGameList(gid) {
