@@ -20,9 +20,14 @@ public class GameCreator extends HttpServlet {
 
     @Inject
     private GameRepository repository;
+  
+    public void setGameRepository(GameRepository gr) {
+        System.out.println(">>> injecting GameRepository");
+        repository = gr;
+    }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cmd = req.getParameter("cmd");
         System.out.println(cmd);
         if ("newGame".equals(cmd)) {
@@ -34,5 +39,7 @@ public class GameCreator extends HttpServlet {
                 pw.println(g.gameId());
             }
         }
+        else
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 }
