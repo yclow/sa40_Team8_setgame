@@ -50,20 +50,26 @@ public class Game {
             Card a= Deck.get(i);
             Deck.remove(a);
             Table.add(a);
-           
+            System.out.println(Table.get(i).toString());
+            
         }
-    //        Table.add(new Card(0,0,0,0));
-    //        Table.add(new Card(1,1,1,1));
-    //        Table.add(new Card(2,2,2,2));
-    //        Table.add(new Card(3,3,3,3));
-    //        Table.add(new Card(4,4,4,4));
-    //        Table.add(new Card(5,5,5,5));
-    //        Table.add(new Card(6,6,6,6));
-    //        Table.add(new Card(7,7,7,7));
-    //        Table.add(new Card(8,8,8,8));
-    //        Table.add(new Card(9,9,9,9));
-    //        Table.add(new Card(10,10,10,10));
-    //        Table.add(new Card(11,11,11,11));
+        if(DoesSetExist(Table)==true)
+            {
+                System.out.println("There exists a set in the table");
+                ShowSet(Table);
+            }
+//            Table.add(new Card(1,1,1,1));
+//            Table.add(new Card(1,1,1,2));
+//            Table.add(new Card(1,1,1,3));
+//            Table.add(new Card(1,1,2,1));
+//            Table.add(new Card(1,1,2,2));
+//            Table.add(new Card(1,1,2,3));
+//            Table.add(new Card(1,1,3,1));
+//            Table.add(new Card(1,1,3,2));
+//            Table.add(new Card(1,1,3,3));
+//            Table.add(new Card(1,2,1,1));
+//            Table.add(new Card(1,2,1,2));
+//            Table.add(new Card(1,2,1,3));
     }
 
     public List<Card> getTable() {
@@ -97,11 +103,50 @@ public class Game {
 	        }
 	        return true;
 	    }
+       public boolean DoesSetExist(List<Card> card) {
+
+        int size = card.size();
+        for (int ai = 0; ai < size; ai++) {
+            Card A = card.get(ai);
+            for (int bi = ai + 1; bi < size; bi++) {
+                Card B = card.get(bi);
+                for (int ci = bi + 1; ci < size; ci++) {
+                    Card C = card.get(ci);
+                    if((isSet(A,B,C))==true)
+                        //System.out.println("Card A = "+ A + " Card B = "+ B +" Card C = "+C);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+       
+       public void ShowSet (List<Card> card)
+       {
+           for (int ai = 0; ai < card.size(); ai++) {
+            Card A = card.get(ai);
+            for (int bi = ai + 1; bi < card.size(); bi++) {
+                Card B = card.get(bi);
+                for (int ci = bi + 1; ci < card.size(); ci++) {
+                    Card C = card.get(ci);
+                    if((isSet(A,B,C))==true)
+                        System.out.println("Card A = "+ A + " Card B = "+ B +" Card C = "+C);
+                    
+                    }
+                }
+            }
+        }
    public void checkSelection(int p0,int p1,int p2)
    {
-       Card a=new Card(p0,p0,p0,p0);
-       Card b=new Card(p1,p1,p1,p1);
-       Card c=new Card(p2,p2,p2,p2);
+//       Card a=new Card(p0,p0,p0,p0);
+//       Card b=new Card(p1,p1,p1,p1);
+//       Card c=new Card(p2,p2,p2,p2);
+       Card a = Table.get(p0);
+       System.out.println(a.toString());
+       Card b = Table.get(p1);
+       System.out.println(b.toString());
+       Card c = Table.get(p2);
+       System.out.println(c.toString());
        
         Lock wLock = lock.writeLock();
         wLock.lock();
@@ -109,16 +154,19 @@ public class Game {
        
        if(isSet(a,b,c))
        {
+           Table.remove(a);
+           Table.remove(b);
+           Table.remove(c);
 
-           Iterator<Card> cIter=Table.iterator();
-           while (cIter.hasNext())
-           {
-               Card z=cIter.next();
-               if((z.getNumber()==a.getNumber() ||
-                       z.getNumber()==b.getNumber() ||
-                       z.getNumber()==c.getNumber()))
-                       cIter.remove();
-           }
+//           Iterator<Card> cIter=Table.iterator();
+//           while (cIter.hasNext())
+//           {
+//               Card z=cIter.next();
+//               if((z.getuID()==a.getuID() ||
+//                       z.getuID()==b.getuID() ||
+//                       z.getuID()==c.getuID()))
+//                       cIter.remove();
+//           }
            
            System.out.println("Table Size After remove: "+Table.size());
              for(int i=0;i<3;i++)
@@ -127,11 +175,32 @@ public class Game {
                  Deck.remove(x);
                  Table.add(x);
              }
-           System.out.println("Set Found"); 
-           for (Card z : Table)
-           {
-               System.out.println(z.toString());
-           }
+           System.out.println("Checking to see if there are sets on the table after removal");
+            while(DoesSetExist(Table)==false)
+            {
+                System.out.println("Number of cards on table: "+Table.size());
+                System.out.println("There are no sets on the table");
+                System.out.println("Shuffling table cards back into Deck");
+                for(int i=0; i<12  ; i++){
+                    //System.out.println(Table.size());
+                    Card temp = Table.get(i);
+                    
+                    Deck.add(temp);
+                    Table.remove(i);
+                   
+                    Card x = Deck.get(i);
+                    Deck.remove(x);
+                    Table.add(x);
+                }
+            }
+            System.out.println("There are sets found on the table");
+            ShowSet(Table);
+           //System.out.println("Set Found"); 
+           System.out.println(Table.size());
+//           for (Card z : Table)
+//           {
+//               System.out.println(z.toString());
+//           }
            
 //                JsonObject data = Json.createObjectBuilder()
 //                    .add("01",01)

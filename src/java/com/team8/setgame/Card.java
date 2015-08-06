@@ -91,7 +91,7 @@ public class Card implements Comparable,Serializable {
 
         @Override
         public String toString() {
-            return number + "," + symbol + "," + shading + "," + colour; // + " - " + sortOrder;
+            return number + "," + symbol + "," + shading + "," + colour +","+uID; // + " - " + sortOrder;
         }
 
     
