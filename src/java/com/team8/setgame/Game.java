@@ -40,8 +40,9 @@ public class Game {
         }
         for (Card k : Deck)
         {
-            k.setuID(unique);
             unique++;
+            k.setuID(unique);
+            
         }
         Collections.sort(Deck); 
        

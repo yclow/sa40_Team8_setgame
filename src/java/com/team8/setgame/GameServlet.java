@@ -52,27 +52,27 @@ public class GameServlet extends HttpServlet {
 //    }
  
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String cmd = req.getParameter("cmd");
-//        System.out.println(cmd);
-//        String redirect = "";
-//        if ("newGame".equals(cmd)) {
-//            Game g = new Game();
-//            repository.add(g);
-//            System.out.println(g.gameId());
-//            resp.setStatus(HttpServletResponse.SC_OK);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String cmd = req.getParameter("cmd");
+        System.out.println(cmd);
+        String redirect = "";
+        if ("NewGame".equals(cmd)) {
+            Game g = new Game();
+            repository.add(g);
+            System.out.println(g.gameId());
+            resp.setStatus(HttpServletResponse.SC_OK);
 //            try (PrintWriter pw = resp.getWriter()) {
 //                pw.println(g.gameId());
 //            }
-//            redirect = "client.html#game" + g.gameId();
-//        } else {
-//            Game g = new Game();
-//            redirect = "client.html#game" + g.gameId();
-//        }
-//
-//        resp.sendRedirect(redirect);
-//    }
+            redirect = "game.html#game" + g.gameId();
+        } else {
+            Game g = new Game();
+            redirect = "list.html#game" + g.gameId();
+        }
+
+        resp.sendRedirect(redirect);
+    }
     
 
 //    @Override
@@ -105,8 +105,8 @@ public class GameServlet extends HttpServlet {
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
         List<Card> table = g.get().getTable();
         for (Card z : table) {
-            System.out.println(z.toString());
-            arrBuilder.add(z.toString());
+            System.out.println(z.getuID());
+            arrBuilder.add(z.getuID());
         }
 
         resp.setContentType(MediaType.APPLICATION_JSON);
@@ -117,6 +117,20 @@ public class GameServlet extends HttpServlet {
 
     }
 
+    // From Ian
+//     @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String cmd = req.getParameter("cmd");
+//        String redirect = "";
+//        if ("New Game".equals(cmd)) {
+//            Game g = new Game();
+//            repository.add(g);
+//            redirect = "game.html#" + g.gameId();            
+//        } else
+//            redirect = "list.html";
+//        
+//        resp.sendRedirect(redirect);
+//    }
 }
 
 //    @GET

@@ -23,21 +23,34 @@ $(document).on("pagecreate", "#home", function () {
                 .done(function (number)
                 {
                     gid=number.trim();
-                $.getJSON(url + "api/game/",{gid:number})
+                $.getJSON(url + "api/game/" + number)
                         .done(function (result) {
                             $("#gameid").append(gid);
-                            for (var i in result) {
-                                console.log("> " + result[i]);
+                           var a = 0;
+                            for (var i in result) {                               
+                                    console.log(">>" + result[i]);
+                                    // start
+                                                 
+                     var str="[data-pos="+a+"]>img";
+                  //$(str).empty();                    
+                  //$(str).append("<img src='images/" + z + ".gif' >");                  
+                    $(str).attr("src", "images/" + result[i] + ".gif");                   
+                  console.log(">" + a);
+                a=a+1;
+                                    // end
                             }
                         });
                 }
                 );
         $.mobile.navigate("#game");
+
+            
+        
     });
 });
 
 $(document).on("pagecreate", "#game", function () {
-    $("#gameid").append(gid);
+   // $("#gameid").append(gid);
     $("[data-pos]").on("click", function () {
         var i = pos.shift();
         if ((container.length) == 3)
@@ -82,13 +95,19 @@ $(document).on("pagecreate", "#game", function () {
             p2: container[2]
         }).done(function (table)
         {
-            console.log(gid);
-            for (var i in container)
-                $("[data-pos='" + container[i] + "']").removeClass("selected");
-            pos = [-1, -1];
-            for (var j in table)
+//            console.log(gid);
+//            for (var i in container)
+//                $("[data-pos='" + container[i] + "']").removeClass("selected");
+//            pos = [-1, -1];
+            var b = 0;
+            for (var y in table)
             {
-                console.log("> " + table[j]);
+                     var str="[data-pos="+b+"]>img";
+                  //$(str).empty();                    
+                  //$(str).append("<img src='images/" + result[y] + ".gif' >");                  
+                  $(str).attr("src", "images/" + table[y] + ".gif");       
+                   // console.log("Table[y]:" + table[y]);
+                b=b+1;
             }
         }).error(function ()
         {
@@ -96,11 +115,6 @@ $(document).on("pagecreate", "#game", function () {
             alert("Not a Set!");
         });
     });
-    
-//    $("#returnHomeBtn").on("click",function(){
-//        $.getJSON(url + "api/game").done(function()
-//                {$.mobile.navigate("");});
-//    } );
 });
 
 function createGameList(gid) {
@@ -111,5 +125,3 @@ function createGameList(gid) {
 $.when(jqmReady).done(function () {
     console.log("all ready");
 });
-
-

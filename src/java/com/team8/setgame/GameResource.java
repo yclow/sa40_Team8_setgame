@@ -47,8 +47,8 @@ public class GameResource {
         if (g.get() != null) {
             List<Card> table = g.get().getTable();
             for (Card z : table) {
-                System.out.println(z.toString());
-                arrBuilder.add(z.toString());
+                System.out.println(z.getuID());
+                arrBuilder.add(z.getuID());
             }
             return (Response.ok(arrBuilder.build()).build());
         } else {
