@@ -1009,7 +1009,6 @@ exists or setup the property manually. For example like this:
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${libs.javaee-api-7.0.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         
-        <copyfiles files="${libs.absolutelayout.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         
         <copyfiles files="${libs.restapi.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>

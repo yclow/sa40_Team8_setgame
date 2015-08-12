@@ -1,7 +1,7 @@
 var gid;
 var temp = null;
 var sourceA;
-var url = "http://localhost:8080/SetGameMobile/";
+var url = "http://localhost:8080/sa40_Team8_setgame/";
 //var gid = null;
 //var pos = [-1,-1];
 //var container = [];
@@ -13,7 +13,7 @@ $(function () {
     gid = window.location.hash.substring(1);
     console.log(window.location.hash);
     temp = window.location.hash.substring(5);
-    console.log("Value of Temp: " + temp);
+    console.log("Is the EO opened?");
     $("#gid").text(temp);
     gid = temp;
     sourceA = new EventSource(url + "api/gameevent/" +gid);
@@ -36,6 +36,7 @@ $(function () {
             ;
             console.log("after Stringify JSON");
         };
+        console.log("End of BroadCast");
     $.getJSON("board", {
         gid: gid
     }).done(function (result) {
@@ -69,6 +70,26 @@ $(function () {
 //            }
 //            ;
 //        };
+    });
+    $(document).ready(function()
+    {
+       $.getJSON("board", {
+        gid: gid
+    }).done(function (result) {
+        console.log("getting gid");
+        var a = 0;
+        for (var i in result) {
+            console.log(">>" + result[i]);
+            // start
+            var str = "[data-pos=" + a + "]>img";
+            $(str).attr("src", "images/" + result[i] + ".gif");
+            console.log(">" + a);
+            a = a + 1;
+        }
+        ;
+        
+        console.log("Got Array?");
+    });
     });
 });
 

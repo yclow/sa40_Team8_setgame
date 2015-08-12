@@ -29,7 +29,6 @@ public class GameBoard extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         String gid = req.getParameter("gid");
-        System.out.println("gid from gameboardservlet "+ gid);
         
         Optional<Game> opt = repository.getGame(gid);
         if (!opt.isPresent()) {

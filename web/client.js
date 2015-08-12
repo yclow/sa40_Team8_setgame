@@ -1,4 +1,4 @@
-var url = "http://localhost:8080/SetGameMobile/";
+var url = "http://localhost:8080/sa40_Team8_setgame/";
 var gid = null;
 var pos = [-1, -1];
 var container = [];
@@ -56,7 +56,7 @@ $(document).on("pagecreate", "#home", function () {
 });
 
 $(document).on("pagecreate", "#game", function () {
-   // $("#gameid").append(gid);
+//    $("#gameid").append(gid);
     $("[data-pos]").on("click", function () {
         var i = pos.shift();
         if ((container.length) == 3)
@@ -79,11 +79,10 @@ $(document).on("pagecreate", "#game", function () {
 
 
     $(document).on("pagecontainerbeforeshow", function (_, $ui) {
-        gid = window.location.hash.substring(1);
         console.log(gid);
         switch ($ui.toPage.attr("id")) {
             case "game":
-                $.getJSON(url + "api/game/" + gid)
+                $.getJSON(url+"api/game/"+gid)
                         .done(function (result) {
                             var a = 0;
                             for (var i in result) {                               
@@ -105,7 +104,7 @@ $(document).on("pagecreate", "#game", function () {
     });
 
     $("#submitBtn").on("click", function () {
-        $.getJSON("api/gameevent/"+gid, {
+        $.getJSON("game", {
             gid: gid,
             p0: container[0],
             p1: container[1],

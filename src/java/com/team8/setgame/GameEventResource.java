@@ -1,6 +1,7 @@
 package com.team8.setgame;
 import java.util.List;
 import java.util.Optional;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -25,28 +26,13 @@ public class GameEventResource {
     @GET
     @Produces(SseFeature.SERVER_SENT_EVENTS)
     public Response get(@PathParam("gid") String gid) {
-        System.out.println(">>> gid request = " + gid);
+        System.out.println(">>> Getting EO with this = " + gid);
         Optional<Game> opt = repository.getGame(gid);
-        JsonObject jbuild=null;
         if (!opt.isPresent())
             return (Response.status(Response.Status.NOT_FOUND).entity("Game not found: " + gid).build());
         Game g = opt.get();
-        EventOutput eo = new EventOutput();
-        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-        List<Card> table = g.getTable();
-        for (Card z : table){
-            jbuild=Json.createObjectBuilder()
-                    .add("ID", z.getuID())
-                    .build();
-            arrBuilder.add(jbuild);
-        }
+        System.out.println("EO has been built");
+        return (Response.ok(g.getEo()).build());
         
-        OutboundEvent ooe = new OutboundEvent.Builder()
-                .mediaType(MediaType.APPLICATION_JSON_TYPE)
-                .data(JsonObject.class, arrBuilder.build())
-                .build();
-        
-        g.add(eo,ooe);
-        return (Response.ok(eo).build());
     }
 }

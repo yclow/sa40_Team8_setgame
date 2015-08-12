@@ -9,6 +9,7 @@ import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.media.sse.EventOutput;
+import org.glassfish.jersey.media.sse.OutboundEvent;
+import org.glassfish.jersey.media.sse.SseBroadcaster;
 
 @WebServlet("/game")
 public class GameServlet extends HttpServlet {
@@ -29,6 +33,12 @@ public class GameServlet extends HttpServlet {
     @Inject
     private GameRepository repository;
 
+    private ManagedScheduledExecutorService service;
+    
+        @Resource(lookup = "concurrent/myFirstPool")
+    public void setMyFristPool(ManagedScheduledExecutorService svc) {
+        service = svc;
+    }   
 //    private class MakeMove implements Runnable {
 //
 //        private final int p0;
@@ -108,13 +118,13 @@ public class GameServlet extends HttpServlet {
             System.out.println(z.getuID());
             arrBuilder.add(z.getuID());
         }
-
         resp.setContentType(MediaType.APPLICATION_JSON);
-        resp.setStatus(HttpServletResponse.SC_OK);
         try (PrintWriter pw = resp.getWriter()) {
             pw.println(arrBuilder.build().toString());
         }
-
+        
+        service.submit(new BroadCastEvent(gid,g.get()));
+         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     // From Ian
