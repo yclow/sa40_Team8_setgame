@@ -1,5 +1,6 @@
 package com.team8.setgame;
 
+import at.oneminutedistraction.cors.api.CORS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.glassfish.jersey.media.sse.EventOutput;
 import org.glassfish.jersey.media.sse.OutboundEvent;
 import org.glassfish.jersey.media.sse.SseBroadcaster;
 
+@CORS(value="/*", debugServlet = "/cors-debug")
 @WebServlet("/game")
 public class GameServlet extends HttpServlet {
 

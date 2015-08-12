@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/Git/sa40_Team8_setgame/src/java/com/team8/setgame/GameBoard.java</file>
-            <file>file:/Z:/Git/sa40_Team8_setgame/src/java/com/team8/setgame/GameServlet.java</file>
-            <file>file:/Z:/Git/sa40_Team8_setgame/src/java/com/team8/setgame/GameEventResource.java</file>
-            <file>file:/Z:/Git/sa40_Team8_setgame/web/game.js</file>
-            <file>file:/Z:/Git/sa40_Team8_setgame/src/java/com/team8/setgame/BroadCastEvent.java</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/src/java/com/team8/setgame/GameBoard.java</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/src/java/com/team8/setgame/GameEventResource.java</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/src/java/com/team8/setgame/Game.java</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/checkload.js</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/index.js</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/game.js</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/src/java/com/team8/setgame/GameServlet.java</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/client.html</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/src/java/com/team8/setgame/GameResource.java</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/index.html</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/list.js</file>
+            <file>file:/C:/Users/Ho/Documents/GitHub/SetGameMobile/web/client.js</file>
         </group>
     </open-files>
 </project-private>
