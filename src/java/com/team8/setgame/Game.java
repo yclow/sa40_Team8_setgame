@@ -27,7 +27,6 @@ public class Game {
     private final SseBroadcaster broadcaster = new SseBroadcaster();
     private EventOutput eo=new EventOutput();
     private int unique;
-<<<<<<< HEAD
 
     public Game() {
 
@@ -37,21 +36,6 @@ public class Game {
             for (int colour = 1; colour < 4; colour++) {
                 for (int shading = 1; shading < 4; shading++) {
                     for (int symbol = 1; symbol < 4; symbol++) {
-=======
-    private final EventOutput eo = new EventOutput();
-
-    public EventOutput getEo() {
-        return eo;
-    }
-    
-    public Game() {   
-        Table=new ArrayList<>();
-        Deck=new ArrayList<>();
-        for (int number=1; number<4; number++) {
-            for (int colour=1; colour<4; colour++) {
-                for (int shading=1; shading<4; shading++) {
-                    for (int symbol=1; symbol<4; symbol++) {
->>>>>>> origin/master
                         Deck.add(new Card(number, colour, shading, symbol));
                     }
                 }
@@ -105,16 +89,8 @@ public class Game {
         this.eo = eo;
     }
     
-<<<<<<< HEAD
     public SseBroadcaster getBroadcaster() {
         return broadcaster;
-=======
-    
-    
-    public void add(OutboundEvent ooe) {
-//        broadcaster.add(eo);
-        broadcaster.broadcast(ooe);
->>>>>>> origin/master
     }
     
     public void broadcast(OutboundEvent ooe) {

@@ -122,15 +122,9 @@ public class GameServlet extends HttpServlet {
         try (PrintWriter pw = resp.getWriter()) {
             pw.println(arrBuilder.build().toString());
         }
-<<<<<<< HEAD
         
         service.submit(new BroadCastEvent(gid,g.get()));
          resp.setStatus(HttpServletResponse.SC_OK);
-=======
-//        String Redirect = "api/gameevent/"+gid;
-//        System.out.println(Redirect);
-//        resp.sendRedirect(Redirect);
->>>>>>> origin/master
     }
 
     // From Ian

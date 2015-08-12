@@ -1,7 +1,7 @@
 var gid;
 var temp = null;
 var sourceA;
-var url = "http://localhost:8080/sa40_Team8_setgame/";
+var url = "http://localhost:8080/SetGameMobile/";
 //var gid = null;
 //var pos = [-1,-1];
 //var container = [];
