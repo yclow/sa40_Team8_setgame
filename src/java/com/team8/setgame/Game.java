@@ -81,8 +81,9 @@ public class Game {
         return (gid);
     }
     
-    public void add(EventOutput eo) {
+    public void add(EventOutput eo, OutboundEvent ooe) {
         broadcaster.add(eo);
+        broadcaster.broadcast(ooe);
     }
     
        public boolean isSet(Card a, Card b, Card c) {

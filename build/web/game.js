@@ -1,8 +1,7 @@
-var SetCard = {
-    source: null,    
-    gid: null
-};
-//var url = "http://localhost:8080/SetGameMobile/";
+var gid;
+var temp = null;
+var sourceA;
+var url = "http://localhost:8080/SetGameMobile/";
 //var gid = null;
 //var pos = [-1,-1];
 //var container = [];
@@ -11,39 +10,67 @@ var SetCard = {
 //    
 //})
 $(function () {
-    SetCard.gid = window.location.hash.substring(1);
-    $("#gid").text(SetCard.gid);
-   $.getJSON("board", {
-        gid: SetCard.gid
-   }).done(function(result) {
-        for (var i in result)
-           flip(i, result[i]);
-        SetCard.source = new EventSource("api/gameevent/" + SetCard.gid);
-        SetCard.source.onmessage = handleMessage;
-   })
-    
- });
+    gid = window.location.hash.substring(1);
+    console.log(window.location.hash);
+    temp = window.location.hash.substring(5);
+    console.log("Value of Temp: " + temp);
+    $("#gid").text(temp);
+    gid = temp;
+    sourceA = new EventSource(url + "api/gameevent/" +gid);
+    sourceA.onmessage = function (event) {
+            var input = JSON.parse(event.data);
+            console.log("Before Stringify JSON");
+            console.log(JSON.stringify(input));
+            var a = 0;
+            for (var i in input) {
+                console.log(">>" + input[i].ID);
+                // start
 
-//function handleMessage(event) {
-//    var move = JSON.parse(event.data);
-//    flip(move.p0, move.p0pic);
-//    flip(move.p1, move.p1pic);
-//    console.log(">>> " + event.data);
-//    if (!move.take) {
-//        $("[data-pos='" + move.p0 + "']>img").delay(2000).queue(function () {
-//            flip(move.p0, "harold");
-//            $(this).dequeue();
-//        });
-//        $("[data-pos='" + move.p1 + "']>img").delay(2000).queue(function () {
-//            flip(move.p1, "harold");
-//            $(this).dequeue();
-//        });
-//    }
-//}
+                var str = "[data-pos=" + a + "]>img";
+                //$(str).empty();                    
+                //$(str).append("<img src='images/" + z + ".gif' >");                  
+                $(str).attr("src", "images/" + input[i].ID   + ".gif");
+                console.log(">" + a);
+                a = a + 1;
+            }
+            ;
+            console.log("after Stringify JSON");
+        };
+    $.getJSON("board", {
+        gid: gid
+    }).done(function (result) {
+        console.log("getting gid");
+        var a = 0;
+        for (var i in result) {
+            console.log(">>" + result[i]);
+            // start
+            var str = "[data-pos=" + a + "]>img";
+            $(str).attr("src", "images/" + result[i] + ".gif");
+            console.log(">" + a);
+            a = a + 1;
+        }
+        ;
+        
+        console.log("Got Array?");
+//        sourceA.onmessage = function (event) {
+//            var input = JSON.parse(event.data);
+//            console.log(JSON.stringify(input));
+//            var a = 0;
+//            for (var i in input) {
+//                console.log(">>" + input[i].ID);
+//                // start
 //
-//function flip(c, img) {
-//    console.log("flip: " + c + ", " + img);
-//    $("[data-pos='" + c + "']>img").attr("src", "images/" + img + ".png");
-//}
+//                var str = "[data-pos=" + a + "]>img";
+//                //$(str).empty();                    
+//                //$(str).append("<img src='images/" + z + ".gif' >");                  
+//                $(str).attr("src", "images/" + input[i].ID   + ".gif");
+//                console.log(">" + a);
+//                a = a + 1;
+//            }
+//            ;
+//        };
+    });
+});
+
 
 

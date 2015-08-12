@@ -68,7 +68,7 @@ public class GameServlet extends HttpServlet {
             redirect = "game.html#game" + g.gameId();
         } else {
             Game g = new Game();
-            redirect = "list.html#game" + g.gameId();
+            redirect = "list.html#game"+ g.gameId();
         }
 
         resp.sendRedirect(redirect);

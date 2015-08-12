@@ -15,7 +15,13 @@ $(document).on("pagecreate", "#home", function () {
         $("#list").on("click", "li>a", function () {
         console.log("list link clicked");
         gid = $(this).attr("href").substring(1);
+        
+            
+                        $("#gameid").append(gid);
+                
+                
         $.mobile.navigate("#game");
+        
     });
     $("#newGame").on("click", function () {
         console.log("Clicked Detect");
@@ -72,23 +78,34 @@ $(document).on("pagecreate", "#game", function () {
     });
 
 
-//    $(document).on("pagecontainerbeforeshow", function (_, $ui) {
-//        switch ($ui.toPage.attr("id")) {
-//            case "game":
-//                $.getJSON(url + "api/game/" + gid)
-//                        .done(function (result) {
-//                            for (var i in result) {
-//                                console.log("> " + result[i]);
-//                            }
-//                            $("#game").listview("refresh");
-//                        });
-//                break;
-//            default:
-//        }
-//    });
+    $(document).on("pagecontainerbeforeshow", function (_, $ui) {
+        gid = window.location.hash.substring(1);
+        console.log(gid);
+        switch ($ui.toPage.attr("id")) {
+            case "game":
+                $.getJSON(url + "api/game/" + gid)
+                        .done(function (result) {
+                            var a = 0;
+                            for (var i in result) {                               
+                                    console.log(">>" + result[i]);
+                                    // start
+                                                 
+                     var str="[data-pos="+a+"]>img";
+                  //$(str).empty();                    
+                  //$(str).append("<img src='images/" + z + ".gif' >");                  
+                    $(str).attr("src", "images/" + result[i] + ".gif");                   
+                  console.log(">" + a);
+                a=a+1;
+                            }
+                            $("#game").listview("refresh");
+                        });
+                break;
+            default:
+        }
+    });
 
     $("#submitBtn").on("click", function () {
-        $.getJSON("game", {
+        $.getJSON("api/gameevent/"+gid, {
             gid: gid,
             p0: container[0],
             p1: container[1],
