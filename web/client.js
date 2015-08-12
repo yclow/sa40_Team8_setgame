@@ -79,10 +79,18 @@ $(document).on("pagecreate", "#game", function () {
 
 
     $(document).on("pagecontainerbeforeshow", function (_, $ui) {
+<<<<<<< HEAD
         console.log(gid);
         switch ($ui.toPage.attr("id")) {
             case "game":
                 $.getJSON(url+"api/game/"+gid)
+=======
+//        gid = window.location.hash.substring(1);
+//        console.log("gid request from the client.js: " + gid);
+        switch ($ui.toPage.attr("id")) {
+            case "game":
+                $.getJSON(url + "api/game/"+gid )
+>>>>>>> origin/master
                         .done(function (result) {
                             var a = 0;
                             for (var i in result) {                               

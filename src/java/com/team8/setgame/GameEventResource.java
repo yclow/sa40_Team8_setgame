@@ -31,8 +31,28 @@ public class GameEventResource {
         if (!opt.isPresent())
             return (Response.status(Response.Status.NOT_FOUND).entity("Game not found: " + gid).build());
         Game g = opt.get();
+<<<<<<< HEAD
         System.out.println("EO has been built");
         return (Response.ok(g.getEo()).build());
         
+=======
+//        EventOutput eo = new EventOutput();
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        List<Card> table = g.getTable();
+        for (Card z : table){
+            jbuild=Json.createObjectBuilder()
+                    .add("ID", z.getuID())
+                    .build();
+            arrBuilder.add(jbuild);
+        }
+        
+        OutboundEvent ooe = new OutboundEvent.Builder()
+                .mediaType(MediaType.APPLICATION_JSON_TYPE)
+                .data(JsonObject.class, arrBuilder.build())
+                .build();
+        
+        g.add(ooe);
+        return (Response.ok(g.getEo()).build());
+>>>>>>> origin/master
     }
 }
