@@ -114,7 +114,9 @@ public class GameServlet extends HttpServlet {
         try (PrintWriter pw = resp.getWriter()) {
             pw.println(arrBuilder.build().toString());
         }
-
+//        String Redirect = "api/gameevent/"+gid;
+//        System.out.println(Redirect);
+//        resp.sendRedirect(Redirect);
     }
 
     // From Ian
