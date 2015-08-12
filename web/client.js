@@ -105,7 +105,7 @@ $(document).on("pagecreate", "#game", function () {
     });
 
     $("#submitBtn").on("click", function () {
-        $.getJSON("api/gameevent/"+gid, {
+        $.getJSON("game", {
             gid: gid,
             p0: container[0],
             p1: container[1],

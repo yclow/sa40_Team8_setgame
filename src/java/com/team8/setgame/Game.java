@@ -25,6 +25,11 @@ public class Game {
     private List<Card> Deck=new ArrayList<>();
     private final SseBroadcaster broadcaster = new SseBroadcaster();
     private int unique;
+    private final EventOutput eo = new EventOutput();
+
+    public EventOutput getEo() {
+        return eo;
+    }
     
     public Game() {   
         Table=new ArrayList<>();
@@ -81,8 +86,10 @@ public class Game {
         return (gid);
     }
     
-    public void add(EventOutput eo, OutboundEvent ooe) {
-        broadcaster.add(eo);
+    
+    
+    public void add(OutboundEvent ooe) {
+//        broadcaster.add(eo);
         broadcaster.broadcast(ooe);
     }
     

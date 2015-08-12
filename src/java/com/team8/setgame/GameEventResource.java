@@ -31,7 +31,7 @@ public class GameEventResource {
         if (!opt.isPresent())
             return (Response.status(Response.Status.NOT_FOUND).entity("Game not found: " + gid).build());
         Game g = opt.get();
-        EventOutput eo = new EventOutput();
+//        EventOutput eo = new EventOutput();
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
         List<Card> table = g.getTable();
         for (Card z : table){
@@ -46,7 +46,7 @@ public class GameEventResource {
                 .data(JsonObject.class, arrBuilder.build())
                 .build();
         
-        g.add(eo,ooe);
-        return (Response.ok(eo).build());
+        g.add(ooe);
+        return (Response.ok(g.getEo()).build());
     }
 }
