@@ -4,21 +4,59 @@ var pos = [-1, -1];
 var container = [];
 
 $(document).on("pagecreate", "#home", function () {
-    $("#gids").on("click", "li>a", function () {
-        gid = $(this).attr("href").substring(1);
-        $.mobile.navigate("#game");
+    $("#listGame").on("click", function () {
+        $.getJSON(url + "api/game")
+                .done(function (games) {
+                    for (var i in games)
+                        $("#gamelist").append(createGameList(games[i]));
+                    $.mobile.navigate("#list");
+                });
     });
+        $("#list").on("click", "li>a", function () {
+        console.log("list link clicked");
+        gid = $(this).attr("href").substring(1);
+        
+            
+                        $("#gameid").append(gid);
+                
+                
+        $.mobile.navigate("#game");
+        
+    });
+    $("#newGame").on("click", function () {
+        console.log("Clicked Detect");
+        $.get("create", {cmd: "newGame"})
+                .done(function (number)
+                {
+                    gid=number.trim();
+                $.getJSON(url + "api/game/" + number)
+                        .done(function (result) {
+                            $("#gameid").append(gid);
+                           var a = 0;
+                            for (var i in result) {                               
+                                    console.log(">>" + result[i]);
+                                    // start
+                                                 
+                     var str="[data-pos="+a+"]>img";
+                  //$(str).empty();                    
+                  //$(str).append("<img src='images/" + z + ".gif' >");                  
+                    $(str).attr("src", "images/" + result[i] + ".gif");                   
+                  console.log(">" + a);
+                a=a+1;
+                                    // end
+                            }
+                        });
+                }
+                );
+        $.mobile.navigate("#game");
 
-    $.getJSON(url + "api/game")
-            .done(function (games) {
-                for (var i in games)
-                    $("#gids").append(createGameList(games[i]));
-                $("#gids").listview("refresh");
-            });
+            
+        
+    });
 });
 
 $(document).on("pagecreate", "#game", function () {
-    $("#gameid").append(gid);
+//    $("#gameid").append(gid);
     $("[data-pos]").on("click", function () {
         var i = pos.shift();
         if ((container.length) == 3)
@@ -40,23 +78,30 @@ $(document).on("pagecreate", "#game", function () {
     });
 
 
-//    $(document).on("pagecontainerbeforeshow", function(_, $ui) {
-//    switch ($ui.toPage.attr("id")) {
-//        case "game":
-//            $.getJSON(url + "api/game/"+ gid)
-//                .done(function(result) {   
-//                    for (var i in result) {                        
-//                    console.log("> " + result[i]);
-//            }
-//                    $("#game").listview("refresh");
-//                });
-//            break;
-//
-//            default:
-//    }
-//});
-
-
+    $(document).on("pagecontainerbeforeshow", function (_, $ui) {
+        console.log(gid);
+        switch ($ui.toPage.attr("id")) {
+            case "game":
+                $.getJSON(url+"api/game/"+gid)
+                        .done(function (result) {
+                            var a = 0;
+                            for (var i in result) {                               
+                                    console.log(">>" + result[i]);
+                                    // start
+                                                 
+                     var str="[data-pos="+a+"]>img";
+                  //$(str).empty();                    
+                  //$(str).append("<img src='images/" + z + ".gif' >");                  
+                    $(str).attr("src", "images/" + result[i] + ".gif");                   
+                  console.log(">" + a);
+                a=a+1;
+                            }
+                            $("#game").listview("refresh");
+                        });
+                break;
+            default:
+        }
+    });
 
     $("#submitBtn").on("click", function () {
         $.getJSON("game", {
@@ -66,16 +111,24 @@ $(document).on("pagecreate", "#game", function () {
             p2: container[2]
         }).done(function (table)
         {
-            for (var i in container)
-                $("[data-pos='" + container[i] + "']").removeClass("selected");
-            pos = [-1, -1];
-            for (var j in table)
+//            console.log(gid);
+//            for (var i in container)
+//                $("[data-pos='" + container[i] + "']").removeClass("selected");
+//            pos = [-1, -1];
+            var b = 0;
+            for (var y in table)
             {
-                console.log("> " + table[j]);
+                     var str="[data-pos="+b+"]>img";
+                  //$(str).empty();                    
+                  //$(str).append("<img src='images/" + result[y] + ".gif' >");                  
+                  $(str).attr("src", "images/" + table[y] + ".gif");       
+                   // console.log("Table[y]:" + table[y]);
+                b=b+1;
             }
         }).error(function ()
         {
-            alert("Some Error Message!");
+            console.log(gid);
+            alert("Not a Set!");
         });
     });
 });
@@ -88,5 +141,3 @@ function createGameList(gid) {
 $.when(jqmReady).done(function () {
     console.log("all ready");
 });
-
-

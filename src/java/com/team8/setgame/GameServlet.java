@@ -1,5 +1,6 @@
 package com.team8.setgame;
 
+import at.oneminutedistraction.cors.api.CORS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.media.sse.EventOutput;
+import org.glassfish.jersey.media.sse.OutboundEvent;
+import org.glassfish.jersey.media.sse.SseBroadcaster;
 
+@CORS(value="/*", debugServlet = "/cors-debug")
 @WebServlet("/game")
 public class GameServlet extends HttpServlet {
 
@@ -29,6 +35,12 @@ public class GameServlet extends HttpServlet {
     @Inject
     private GameRepository repository;
 
+    private ManagedScheduledExecutorService service;
+    
+        @Resource(lookup = "concurrent/myFirstPool")
+    public void setMyFristPool(ManagedScheduledExecutorService svc) {
+        service = svc;
+    }   
 //    private class MakeMove implements Runnable {
 //
 //        private final int p0;
@@ -50,20 +62,30 @@ public class GameServlet extends HttpServlet {
 //        }
 //
 //    }
+ 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cmd = req.getParameter("cmd");
+        System.out.println(cmd);
         String redirect = "";
-        if ("New Game".equals(cmd)) {
+        if ("NewGame".equals(cmd)) {
             Game g = new Game();
             repository.add(g);
-            redirect = "client.html#" + g.gameId();
+            System.out.println(g.gameId());
+            resp.setStatus(HttpServletResponse.SC_OK);
+//            try (PrintWriter pw = resp.getWriter()) {
+//                pw.println(g.gameId());
+//            }
+            redirect = "game.html#game" + g.gameId();
         } else {
-            redirect = "list.html";
+            Game g = new Game();
+            redirect = "list.html#game"+ g.gameId();
         }
 
         resp.sendRedirect(redirect);
     }
+    
 
 //    @Override
 //    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -95,18 +117,32 @@ public class GameServlet extends HttpServlet {
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
         List<Card> table = g.get().getTable();
         for (Card z : table) {
-            System.out.println(z.toString());
-            arrBuilder.add(z.toString());
+            System.out.println(z.getuID());
+            arrBuilder.add(z.getuID());
         }
-
         resp.setContentType(MediaType.APPLICATION_JSON);
-        resp.setStatus(HttpServletResponse.SC_OK);
         try (PrintWriter pw = resp.getWriter()) {
             pw.println(arrBuilder.build().toString());
         }
-
+        
+        service.submit(new BroadCastEvent(gid,g.get()));
+         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
+    // From Ian
+//     @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String cmd = req.getParameter("cmd");
+//        String redirect = "";
+//        if ("New Game".equals(cmd)) {
+//            Game g = new Game();
+//            repository.add(g);
+//            redirect = "game.html#" + g.gameId();            
+//        } else
+//            redirect = "list.html";
+//        
+//        resp.sendRedirect(redirect);
+//    }
 }
 
 //    @GET

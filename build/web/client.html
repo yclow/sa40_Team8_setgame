@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Game View</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src *;script-src 'self' 'unsafe-eval' 'unsafe-inline'">
         <script src="cordova.js"></script>
         <link rel="stylesheet" href="libs/jquery.mobile-1.4.5.css">
         <script src="libs/jquery-2.1.1.js"></script>
@@ -23,10 +24,20 @@ and open the template in the editor.
                 <h3>Games</h3>
             </div>
             <div role="main" class="ui-content">
+                <button data-role="button" id="newGame" name="cmd">New Game</button>
+                <button data-role="button" id="listGame">List Game</button>
                 <ul data-role="listview" data-inset="true" id="gids">                    
                 </ul>
             </div>
         </div>
+        
+                <div id="list" data-role="page">
+            <div data-role="header" data-position="fixed">
+                <h3>Available Games </h3>
+                <ul data-role="listview" data-inset="true" id="gamelist">                    
+                </ul>
+            </div>
+                </div>
 
         <div id="game" data-role="page">
             <div data-role="header" data-position="fixed">
@@ -35,31 +46,29 @@ and open the template in the editor.
 
             <div role="main" class="ui-content">
                 <div class="ui-grid-b">
-                    <div class="ui-block-a" data-pos="0"><img src="images/01.gif" alt=""/></div> 
-                    <div class="ui-block-b" data-pos="1"><img src="images/02.gif" alt=""/></div>
-                    <div class="ui-block-c" data-pos="2"><img src="images/03.gif" alt=""/></div>
+                    <div class="ui-block-a" data-pos="0"><img src="images/blank.gif" alt=""/></div> 
+                    <div class="ui-block-b" data-pos="1"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-c" data-pos="2"><img src="images/blank.gif" alt=""/></div>
                 </div>
                 <div class="ui-grid-b">
-                    <div class="ui-block-a" data-pos="3"><img src="images/04.gif" alt=""/></div>
-                    <div class="ui-block-b" data-pos="4"><img src="images/05.gif" alt=""/></div>
-                    <div class="ui-block-c" data-pos="5"><img src="images/06.gif" alt=""/></div>
+                    <div class="ui-block-a" data-pos="3"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-b" data-pos="4"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-c" data-pos="5"><img src="images/blank.gif" alt=""/></div>
                 </div>
                 <div class="ui-grid-b">
-                    <div class="ui-block-a" data-pos="6"><img src="images/08.gif" alt=""/></div>
-                    <div class="ui-block-b" data-pos="7"><img src="images/09.gif" alt=""/></div>
-                    <div class="ui-block-c" data-pos="8"><img src="images/10.gif" alt=""/></div>
+                    <div class="ui-block-a" data-pos="6"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-b" data-pos="7"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-c" data-pos="8"><img src="images/blank.gif" alt=""/></div>
                 </div>
                 <div class="ui-grid-b">
-                    <div class="ui-block-a" data-pos="9"><img src="images/11.gif" alt=""/></div>
-                    <div class="ui-block-b" data-pos="10"><img src="images/12.gif" alt=""/></div>
-                    <div class="ui-block-c" data-pos="11"><img src="images/13.gif" alt=""/></div>
+                    <div class="ui-block-a" data-pos="9"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-b" data-pos="10"><img src="images/blank.gif" alt=""/></div>
+                    <div class="ui-block-c" data-pos="11"><img src="images/blank.gif" alt=""/></div>
                 </div> 
             </div>
             <div data-role="footer">
                 <button data-role="button" id="submitBtn">Submit</button>
             </div>
         </div>
-
-
     </body>
 </html>
